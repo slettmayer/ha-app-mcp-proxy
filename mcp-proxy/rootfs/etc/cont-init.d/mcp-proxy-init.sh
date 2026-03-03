@@ -9,9 +9,11 @@ if ! bashio::fs.file_exists "${CONFIG_FILE}"; then
     bashio::log.info "No servers.json found — creating default config with calculator example"
     cat > "${CONFIG_FILE}" << 'EOF'
 {
-  "calculator": {
-    "command": "uvx",
-    "args": ["mcp-server-calculator"]
+  "mcpServers": {
+    "calculator": {
+      "command": "uvx",
+      "args": ["mcp-server-calculator"]
+    }
   }
 }
 EOF
@@ -24,5 +26,5 @@ if ! python3 -c "import json, sys; json.load(open(sys.argv[1]))" "${CONFIG_FILE}
 fi
 
 # Log configured server names
-server_names=$(python3 -c "import json, sys; print(', '.join(json.load(open(sys.argv[1])).keys()))" "${CONFIG_FILE}")
+server_names=$(python3 -c "import json, sys; print(', '.join(json.load(open(sys.argv[1])).get('mcpServers', {}).keys()))" "${CONFIG_FILE}")
 bashio::log.info "Configured MCP servers: ${server_names}"
