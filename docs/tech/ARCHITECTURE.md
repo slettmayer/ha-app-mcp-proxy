@@ -39,7 +39,7 @@ home-assistant-apps/
 
 **Add-on packaging (`mcp-proxy/`)** -- owns the HA manifest, build config, user docs, changelog, and translations. Produces the installable add-on artifact.
 
-**Container init (`rootfs/etc/cont-init.d/mcp-proxy-init.sh`)** -- owns first-run setup and runtime dependency pre-fetching. Creates default `servers.json` if missing, validates JSON syntax, logs configured server names, and pre-installs npm packages globally (`npm install -g`) for any `npx`-based servers to prevent first-connection timeout. Fails fast on invalid config. uvx servers are not pre-installed (they cache on first run).
+**Container init (`rootfs/etc/cont-init.d/mcp-proxy-init.sh`)** -- owns first-run setup. Creates default `servers.json` if missing, validates JSON syntax, logs configured server names. Fails fast on invalid config.
 
 **Service runtime (`rootfs/etc/services.d/mcp-proxy/run`)** -- owns the main process. Reads HA options via `bashio::config`, transforms values as needed (e.g., lowercase log level to uppercase), and `exec`s `mcp-proxy` with `--named-server-config /config/servers.json` and other CLI flags. The `exec` replaces the shell so s6 directly supervises the `mcp-proxy` process.
 
