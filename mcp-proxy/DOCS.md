@@ -29,13 +29,17 @@ On first start, the add-on creates a default config with a calculator example se
 
 ### Example configurations
 
+The config file uses the standard MCP `mcpServers` format:
+
 **uvx-based server (Python):**
 
 ```json
 {
-  "calculator": {
-    "command": "uvx",
-    "args": ["mcp-server-calculator"]
+  "mcpServers": {
+    "calculator": {
+      "command": "uvx",
+      "args": ["mcp-server-calculator"]
+    }
   }
 }
 ```
@@ -44,9 +48,11 @@ On first start, the add-on creates a default config with a calculator example se
 
 ```json
 {
-  "filesystem": {
-    "command": "npx",
-    "args": ["-y", "@modelcontextprotocol/server-filesystem", "/config"]
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/config"]
+    }
   }
 }
 ```
@@ -55,11 +61,13 @@ On first start, the add-on creates a default config with a calculator example se
 
 ```json
 {
-  "github": {
-    "command": "npx",
-    "args": ["-y", "@modelcontextprotocol/server-github"],
-    "env": {
-      "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_token_here"
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_your_token_here"
+      }
     }
   }
 }
@@ -69,13 +77,15 @@ On first start, the add-on creates a default config with a calculator example se
 
 ```json
 {
-  "calculator": {
-    "command": "uvx",
-    "args": ["mcp-server-calculator"]
-  },
-  "filesystem": {
-    "command": "npx",
-    "args": ["-y", "@modelcontextprotocol/server-filesystem", "/config"]
+  "mcpServers": {
+    "calculator": {
+      "command": "uvx",
+      "args": ["mcp-server-calculator"]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/config"]
+    }
   }
 }
 ```

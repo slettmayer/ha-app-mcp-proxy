@@ -1,6 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
 log_level=$(bashio::config 'log_level' 'info')
+log_level=$(echo "${log_level}" | tr '[:lower:]' '[:upper:]')
 
 pass_env_flag=""
 if bashio::config.true 'pass_environment'; then
