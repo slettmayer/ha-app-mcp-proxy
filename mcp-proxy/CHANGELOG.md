@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.2.3
+## 0.2.4
 
-- Pre-install npm packages for npx-based MCP servers during init to prevent mcp-proxy timeout on first connection
+- Remove npm pre-install feature (introduced in 0.2.3) to reduce complexity; npx/uvx packages download on first use as before
 
 ## 0.2.2
 

@@ -74,7 +74,7 @@ Industry: Smart home / AI tooling infrastructure.
 
 ## Known Risks
 - Tight coupling to `mcp-proxy` upstream; the `--named-server-config` CLI flag is the integration point -- if upstream renames it, the `run` script breaks silently
-- First-run latency: uvx servers download packages on first use (30-60 seconds). npx servers are pre-installed at container startup (v0.2.3+), shifting that delay to add-on start time instead
+- First-run latency: npx/uvx download packages on first use (30-60 seconds)
 
 ## Extension Guidelines
 - New domain concepts should be added to the glossary table above
