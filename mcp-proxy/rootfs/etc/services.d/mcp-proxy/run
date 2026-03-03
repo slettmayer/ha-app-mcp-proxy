@@ -10,7 +10,7 @@ fi
 
 bashio::log.info "Starting MCP Proxy on 0.0.0.0:9876..."
 
-exec mcp-proxy \
+exec /usr/local/uv-tools/bin/mcp-proxy \
     --host 0.0.0.0 \
     --port 9876 \
     ${pass_env_flag} \
