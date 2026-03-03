@@ -1,6 +1,7 @@
 name: MCP Proxy
-version: "0.1.0"
+version: "0.2.0"
 slug: mcp_proxy
+image: ghcr.io/slettmayer/mcp-proxy
 description: >-
   Bridges stdio-based MCP servers to SSE/StreamableHTTP
   for Home Assistant LLM integrations.
