@@ -59,7 +59,7 @@ Every release requires these steps:
 - No unit/integration tests; Docker smoke tests cover tool availability only
 - `ghcr.io/astral-sh/uv:latest` is unpinned; Dependabot does not monitor Docker image refs, only GitHub Actions
 - `mcp-proxy/CHANGELOG.md` format is load-bearing: must start with `# Changelog\n\n` and use `## X.Y.Z` headers (dependabot-version-bump workflow depends on this)
-- Doc-only PRs skip CI (`paths-ignore`), so they get no status check on `main`
+- Doc-only PRs rely on the `gate` job (which passes when `build` is skipped); branch protection must require `gate` not `build`
 
 ## Detailed Guides
 - [Technical Context](docs/tech/README.md) -- architecture, tech stack, conventions, infrastructure
