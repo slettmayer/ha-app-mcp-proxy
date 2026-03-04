@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.5
+
+- Add Docker build smoke tests to CI for critical tools (node, npm, npx, python3, uv, uvx, mcp-proxy)
+- Pin `home-assistant/builder` to v2025.03.2, add cosign image signing, and configure Dependabot for GitHub Actions
+- Add workflow to auto-bump version and changelog on Dependabot PRs
+
 ## 0.2.4
 
 - Remove npm pre-install feature (introduced in 0.2.3) to reduce complexity; npx/uvx packages download on first use as before
