@@ -71,6 +71,7 @@ jobs:
             echo "## ${NEW}"
             echo ""
             echo "- Bump ${DEP_NAME} (Dependabot)"
+            echo ""
             # Skip the first line (# Changelog) and the blank line after it
             tail -n +3 mcp-proxy/CHANGELOG.md
           } > "${tmp}"
