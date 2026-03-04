@@ -37,7 +37,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build add-on
-        uses: home-assistant/builder@master
+        uses: home-assistant/builder@6cb4fd3d1338b6e22d0958a4bcb53e0965ea63b4 # v2026.02.1
         with:
           args: |
             ${{ github.event_name == 'pull_request' && '--test' || '' }} \
