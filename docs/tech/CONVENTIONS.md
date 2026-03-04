@@ -45,6 +45,10 @@ Documents naming patterns, code style, error handling, and shell scripting conve
 - Inline Python: use `python3 -c "..."` for JSON manipulation in shell scripts; do not parse JSON with shell tools (`grep`, `awk`, `cut`)
 - Intentionally unquoted variables: when a variable may be empty and should expand to nothing (not an empty string argument), leave it unquoted (e.g., `${pass_env_flag}`). Document the intent with a comment
 
+### CHANGELOG Format
+- `mcp-proxy/CHANGELOG.md` must start with exactly `# Changelog` on line 1 followed by a blank line on line 2 -- the dependabot-version-bump workflow uses `tail -n +3` to skip these lines
+- Version section headers must use exact `## X.Y.Z` format with no trailing whitespace -- the workflow's idempotency check uses `grep -q "^## X.Y.Z$"`
+
 ### YAML Style
 - Indentation: 2 spaces
 - Multiline strings: `>-` (folded, strip trailing newline)

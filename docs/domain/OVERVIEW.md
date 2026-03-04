@@ -23,7 +23,7 @@ Industry: Smart home / AI tooling infrastructure.
 
 **MCP Server** -- a tool server conforming to the Model Context Protocol. Defined in `servers.json` by `command`, `args[]`, and optional `env{}`. Each server becomes a named SSE endpoint.
 
-**servers.json** -- the user-editable config file at `/addon-configs/mcp_proxy/servers.json` (mapped to `/config/servers.json` inside the container). A JSON object with a top-level `mcpServers` key whose value is a flat map of server names to server definitions. Each definition has `command`, `args[]`, optional `env{}`, and optional `type` (e.g., `"stdio"`). Single source of truth for active MCP servers.
+**servers.json** -- the user-editable config file at `/addon-configs/mcp_proxy/servers.json` (mapped to `/config/servers.json` inside the container). Uses the standard `mcpServers` JSON config format -- the same schema used by Claude Desktop, Cursor, and other MCP clients, making configs portable across tools. A JSON object with a top-level `mcpServers` key whose value is a flat map of server names to server definitions. Each definition has `command`, `args[]`, optional `env{}`, and optional `type` (e.g., `"stdio"` for subprocess-based servers; defaults to `"stdio"` if omitted). Single source of truth for active MCP servers.
 
 **SSE Endpoint** -- HTTP endpoint per server at `http://<host>:9876/servers/<name>/sse`. This is the interface consumed by HA LLM integrations.
 
