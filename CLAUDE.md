@@ -24,7 +24,7 @@ See [ARCHITECTURE.md](docs/tech/ARCHITECTURE.md) for data flow and module bounda
 ## Core Conventions
 - All shell scripts use `#!/usr/bin/with-contenv bashio` shebang, never plain bash
 - Always use full paths to uv-tool binaries in s6 scripts (Dockerfile `ENV PATH` is NOT available)
-- Write `finish` scripts in bash, not `execlineb` (s6 binaries not on PATH in HA's s6-overlay v3)
+- Write `finish` scripts with `#!/usr/bin/with-contenv bashio` shebang, not `execlineb` (s6 binaries not on PATH in HA's s6-overlay v3)
 - Use `/run/s6/basedir/bin/halt` to halt the supervision tree
 - Shell: 4-space indent, quoted braced vars (`"${var}"`), YAML: 2-space indent
 - See [CONVENTIONS.md](docs/tech/CONVENTIONS.md) for full style guide
@@ -47,6 +47,7 @@ For Dependabot PRs, steps 1-2 are handled automatically by the `dependabot-versi
 - `config.yaml` MUST have an `image` field or HA builds locally instead of pulling from GHCR
 - `pass_environment` leaks `SUPERVISOR_TOKEN` to MCP servers -- default is off for a reason
 - `home-assistant/builder` is pinned to a SHA; Dependabot monitors for updates (GitHub Actions ecosystem only)
+- GitHub App secrets (`GH_ACTION_APP_ID`, `GH_ACTION_APP_PRIVATE_KEY`) must be in **both** Actions and Dependabot secret settings; missing Dependabot secrets cause silent failures on Dependabot PRs
 - Never place `servers.json` inside `rootfs/`; user config lives at `/config/servers.json` via `addon_config:rw` mount
 
 ## Branch Protection
@@ -57,7 +58,8 @@ For Dependabot PRs, steps 1-2 are handled automatically by the `dependabot-versi
 - No shellcheck or yamllint in CI; script errors only caught at runtime
 - No unit/integration tests; Docker smoke tests cover tool availability only
 - `ghcr.io/astral-sh/uv:latest` is unpinned; Dependabot does not monitor Docker image refs, only GitHub Actions
-- Qodana/CheckStyle configs are dead JVM scaffolding (no Java in project) -- should be removed
+- Untracked `.idea/` directory and `qodana.yaml` are dead JVM scaffolding (no Java in project) -- should be removed or added to a root `.gitignore`
+- `actions/checkout@v4` in the `changes` job of `build.yaml` is stale; all other jobs use `@v6` -- likely a Dependabot miss
 - `mcp-proxy/CHANGELOG.md` format is load-bearing: must start with `# Changelog\n\n` and use `## X.Y.Z` headers (dependabot-version-bump workflow depends on this)
 - Doc-only PRs rely on the `gate` job (which passes when `build` is skipped); branch protection must require `gate` not `build`
 
