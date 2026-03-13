@@ -56,7 +56,7 @@ Documents naming patterns, code style, error handling, and shell scripting conve
 
 ### Error Handling
 - Init scripts validate preconditions and `exit 1` on failure (prevents service from starting)
-- `finish` script halts the s6 supervision tree on unexpected exit codes (not 0 or 256)
+- `finish` script halts the s6 supervision tree on unexpected exit codes (not 0 or 256). Exit code 256 is s6-overlay's signal for a clean supervisor-requested service stop -- it must not trigger a halt
 - No silent failures: every error path either exits non-zero or logs explicitly before halting
 
 ### Logging

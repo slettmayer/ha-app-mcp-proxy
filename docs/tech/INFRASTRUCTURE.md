@@ -30,9 +30,9 @@ Defined in `.github/workflows/build.yaml`. Triggers:
 - Pull requests targeting `main` (no `paths-ignore` -- always triggers so the `gate` check is reported)
 
 Steps per architecture (`aarch64`, `amd64` matrix):
-1. Checkout code
+1. Checkout code (`actions/checkout@v6`)
 2. Authenticate to GHCR via `docker/login-action@v4` using `GITHUB_TOKEN` (push to `main` only; skipped on PRs)
-3. Build and push via `home-assistant/builder` (pinned to SHA, managed by Dependabot)
+3. Build and push via `home-assistant/builder` (pinned to SHA for `v2026.02.1`, managed by Dependabot)
 
 Builder flags:
 - `--docker-hub ghcr.io/<owner>` -- registry prefix
@@ -45,7 +45,7 @@ Builder flags:
 On pull requests, GHCR login is skipped and `--test` prevents image push. PRs from forks follow the same path (test build only).
 
 The workflow uses a `changes` → `build` → `gate` pattern to handle documentation-only PRs:
-1. **`changes`** -- uses `dorny/paths-filter@v3` to detect whether the PR touches code (non-doc files). Outputs `code: true/false`.
+1. **`changes`** -- uses `dorny/paths-filter@v3` to detect whether the PR touches code (non-doc files). Outputs `code: true/false`. Note: this job still uses `actions/checkout@v4` (stale; all other jobs use `@v6`).
 2. **`build`** -- the existing matrix build, now conditional on `needs.changes.outputs.code == 'true'`. Skipped entirely for docs-only PRs.
 3. **`gate`** -- runs after `build` with `if: always()`. Passes if `build` succeeded or was skipped; fails if `build` failed or was cancelled.
 

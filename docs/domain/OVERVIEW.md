@@ -73,7 +73,7 @@ Industry: Smart home / AI tooling infrastructure.
 - Default calculator example: provides immediate feedback on first install
 
 ## Known Risks
-- Tight coupling to `mcp-proxy` upstream; the `--named-server-config` CLI flag is the integration point -- if upstream renames it, the `run` script breaks silently
+- Tight coupling to `mcp-proxy` upstream; the `run` script depends on five CLI flags (`--host`, `--port`, `--log-level`, `--pass-environment`, `--named-server-config`) -- if upstream renames any of them, the `run` script breaks silently
 - First-run latency: npx/uvx download packages on first use (30-60 seconds)
 
 ## Extension Guidelines

@@ -22,7 +22,12 @@ The layout is framework-driven by the HA add-on specification:
 ```
 home-assistant-apps/
 ├── repository.yaml              # HA recognizes this repo as an add-on source
-├── .github/workflows/build.yaml # CI/CD
+├── CLAUDE.md                    # AI assistant context (index + critical rules)
+├── docs/                        # AI assistant detailed guides (tech + domain)
+├── .github/workflows/
+│   ├── build.yaml               # CI/CD build pipeline
+│   ├── release.yaml             # Auto-release on version bump
+│   └── dependabot-version-bump.yaml # Auto version bump for Dependabot PRs
 └── mcp-proxy/                   # The add-on (siblings would be additional add-ons)
     ├── config.yaml              # Add-on manifest
     ├── build.yaml               # Base image per architecture
