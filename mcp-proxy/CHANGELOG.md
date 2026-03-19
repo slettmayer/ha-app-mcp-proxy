@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.10
+
+- Bump actions/create-github-app-token (Dependabot)
+
 ## 0.2.9
 
 - Bump actions/checkout (Dependabot)
