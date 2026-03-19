@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.12
+
+- Bump home-assistant/builder (Dependabot)
+
 ## 0.2.11
 
 - Bump dorny/paths-filter (Dependabot)
