@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.11
+
+- Bump dorny/paths-filter (Dependabot)
+
 ## 0.2.10
 
 - Bump actions/create-github-app-token (Dependabot)
