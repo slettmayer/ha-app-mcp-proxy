@@ -42,7 +42,7 @@ home-assistant-apps/
 
 ### Module Boundaries
 
-**Add-on packaging (`mcp-proxy/`)** -- owns the HA manifest, build config, user docs, changelog, and translations. Produces the installable add-on artifact.
+**Add-on packaging (`mcp-proxy/`)** -- owns the HA manifest, build config, user docs, changelog, and translations. Produces the installable add-on artifact. Key `config.yaml` fields: `init: false` (disables HA's default init injection; required because the add-on uses s6-overlay from the base image directly), `startup: services` (sets HA boot order -- `application` would delay startup), `boot: auto` (starts on system boot), `watchdog: http://[HOST]:[PORT:9876]/status` (HA polls this templated URL to detect failures).
 
 **Container init (`rootfs/etc/cont-init.d/mcp-proxy-init.sh`)** -- owns first-run setup. Creates default `servers.json` if missing, validates JSON syntax, logs configured server names. Fails fast on invalid config.
 

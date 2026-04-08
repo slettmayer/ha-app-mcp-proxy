@@ -23,7 +23,7 @@ Industry: Smart home / AI tooling infrastructure.
 
 **MCP Server** -- a tool server conforming to the Model Context Protocol. Defined in `servers.json` by `command`, `args[]`, and optional `env{}`. Each server becomes a named SSE endpoint.
 
-**servers.json** -- the user-editable config file at `/addon-configs/mcp_proxy/servers.json` (mapped to `/config/servers.json` inside the container). A JSON object with a top-level `mcpServers` key whose value is a flat map of server names to server definitions. Each definition has `command`, `args[]`, optional `env{}`, and optional `type` (e.g., `"stdio"`). Single source of truth for active MCP servers.
+**servers.json** -- the user-editable config file at `/addon-configs/mcp_proxy/servers.json` (mapped to `/config/servers.json` inside the container). A JSON object with a top-level `mcpServers` key whose value is a flat map of server names to server definitions. Each definition has `command`, `args[]`, optional `env{}`, and optional `type` (e.g., `"stdio"`). Single source of truth for active MCP servers. The `mcpServers` format is the de facto cross-ecosystem MCP client config standard -- the same schema used by Claude Desktop, Cursor, and VS Code extensions, so users can copy config between tools.
 
 **SSE Endpoint** -- HTTP endpoint per server at `http://<host>:9876/servers/<name>/sse`. This is the interface consumed by HA LLM integrations.
 
@@ -46,6 +46,7 @@ Industry: Smart home / AI tooling infrastructure.
 | s6-overlay | Init system in HA base images; manages service startup and supervision |
 | bashio | HA shell helper library providing config access, logging, and filesystem helpers |
 | addon_config | HA filesystem mount type; maps `/addon-configs/<slug>/` to `/config/` in the container |
+| mcpServers | Top-level JSON key in `servers.json`; de facto cross-ecosystem MCP client config standard shared with Claude Desktop, Cursor, and VS Code extensions |
 | Watchdog | HA feature that polls `/status` and restarts the add-on if it stops responding |
 
 ### External Integrations
@@ -73,7 +74,7 @@ Industry: Smart home / AI tooling infrastructure.
 - Default calculator example: provides immediate feedback on first install
 
 ## Known Risks
-- Tight coupling to `mcp-proxy` upstream; the `run` script depends on five CLI flags (`--host`, `--port`, `--log-level`, `--pass-environment`, `--named-server-config`) -- if upstream renames any of them, the `run` script breaks silently
+- Tight coupling to `mcp-proxy` upstream; the `run` script depends on five CLI flags (`--host`, `--port`, `--log-level`, `--pass-environment`, `--named-server-config`) and the smoke test uses `--version` -- if upstream renames any of them, the build or `run` script breaks silently
 - First-run latency: npx/uvx download packages on first use (30-60 seconds)
 
 ## Extension Guidelines

@@ -58,8 +58,8 @@ For Dependabot PRs, steps 1-2 are handled automatically by the `dependabot-versi
 - No shellcheck or yamllint in CI; script errors only caught at runtime
 - No unit/integration tests; Docker smoke tests cover tool availability only
 - `ghcr.io/astral-sh/uv:latest` is unpinned; Dependabot does not monitor Docker image refs, only GitHub Actions
-- Untracked `.idea/` directory and `qodana.yaml` are dead JVM scaffolding (no Java in project) -- should be removed or added to a root `.gitignore`
-- `actions/checkout@v4` in the `changes` job of `build.yaml` is stale; all other jobs use `@v6` -- likely a Dependabot miss
+- `.idea/` is partially tracked (module/plugin config committed, workspace state excluded via `.idea/.gitignore`); `qodana.yaml` targets `jetbrains/qodana-jvm-community` with `projectJDK: "21"` -- runnable but incorrect JVM analysis config for a non-Java project
+- `.claude/settings.local.json` exists untracked -- no root `.gitignore` means it could be committed accidentally
 - `mcp-proxy/CHANGELOG.md` format is load-bearing: must start with `# Changelog\n\n` and use `## X.Y.Z` headers (dependabot-version-bump workflow depends on this)
 - Doc-only PRs rely on the `gate` job (which passes when `build` is skipped); branch protection must require `gate` not `build`
 

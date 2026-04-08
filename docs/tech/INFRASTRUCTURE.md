@@ -45,7 +45,7 @@ Builder flags:
 On pull requests, GHCR login is skipped and `--test` prevents image push. PRs from forks follow the same path (test build only).
 
 The workflow uses a `changes` → `build` → `gate` pattern to handle documentation-only PRs:
-1. **`changes`** -- uses `dorny/paths-filter@v3` to detect whether the PR touches code (non-doc files). Outputs `code: true/false`. Note: this job still uses `actions/checkout@v4` (stale; all other jobs use `@v6`).
+1. **`changes`** -- uses `dorny/paths-filter@v3` to detect whether the PR touches code (non-doc files). Outputs `code: true/false`.
 2. **`build`** -- the existing matrix build, now conditional on `needs.changes.outputs.code == 'true'`. Skipped entirely for docs-only PRs.
 3. **`gate`** -- runs after `build` with `if: always()`. Passes if `build` succeeded or was skipped; fails if `build` failed or was cancelled.
 
